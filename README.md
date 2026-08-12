@@ -127,7 +127,12 @@ masked.
 
 ---
 
-## What gets sent where
+## Privacy and disclaimer
+
+This is a personal project published for educational purposes. It is provided
+as-is, with no warranty — you are responsible for how and where you use it,
+and I accept no liability for any consequence of using it, including
+recording, privacy, or compliance issues on your calls.
 
 Everything said on the call — by everyone, plus you if microphone capture is
 on — is streamed to OpenAI for transcription, and excerpts go to the chat
