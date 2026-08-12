@@ -11,6 +11,17 @@ A rolling meeting summary sits below, refreshed in the background.
 
 ---
 
+## Setup
+
+1. `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select this folder.
+2. Click the extension icon → ⚙, or open the options page directly.
+3. Fill in your name, projects, and people. Paste an OpenAI API key and hit **Test key**.
+4. Join a Meet call and click the extension icon once. The side panel opens and capture starts.
+
+Clicking the icon again stops the session.
+
+---
+
 ## What it looks like
 
 **Your name comes up.** The banner and the chime fire off the interim
@@ -30,17 +41,6 @@ and people, which mentions alert, match sensitivity, log detail, and the OpenAI
 key and model IDs.
 
 ![Options page with profile, watch list, alert and OpenAI settings](test/sample3.png)
-
----
-
-## Setup
-
-1. `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select this folder.
-2. Click the extension icon → ⚙, or open the options page directly.
-3. Fill in your name, projects, and people. Paste an OpenAI API key and hit **Test key**.
-4. Join a Meet call and click the extension icon once. The side panel opens and capture starts.
-
-Clicking the icon again stops the session.
 
 ---
 
