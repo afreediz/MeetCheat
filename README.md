@@ -336,3 +336,13 @@ All latency and sensitivity knobs are in one place: `TUNING` in
 | Mic socket costs too much | raise `VAD_RMS_OPEN` |
 | Word tails clipped on your mic | raise `VAD_HANGOVER_MS` |
 | Context note misses older discussion | raise `NOTES_VERBATIM_MS` |
+
+---
+
+## Contributing
+
+Open to contributions — issues and pull requests are welcome. Meet's markup
+moves, model IDs move, and the matcher always has room for more real-world
+manglings, so fixes for any of those are especially useful.
+
+If you found this helpful, a ⭐ is appreciated.
