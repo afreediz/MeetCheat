@@ -1,0 +1,366 @@
+/*
+ * Side panel styling.
+ *
+ * Read-in-two-seconds is the whole design brief: the user is mid-call, being
+ * looked at, and has to answer. Big type on the ask, tight everything else.
+ */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1b1b1f;
+  --muted: #62636b;
+  --line: #e3e4e8;
+  --card: #f7f7f9;
+  --accent: #b3261e;
+  --accent-bg: #fdecea;
+  --ok: #1e8e3e;
+  --warn-bg: #fff4e5;
+  --warn-fg: #8a5300;
+  --warn-line: #f0c98a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #16171a;
+    --fg: #e8e8ea;
+    --muted: #9a9ba3;
+    --line: #2c2d33;
+    --card: #1e1f24;
+    --accent: #f2b8b5;
+    --accent-bg: #3a1f1d;
+    --ok: #6fce8f;
+    --warn-bg: #33291a;
+    --warn-fg: #f0c98a;
+    --warn-line: #5a4726;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 12px 16px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 14px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- status bar --- */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex: none;
+}
+
+.dot.live {
+  background: var(--accent);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.dot.connecting {
+  background: var(--warn-fg);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot.live { animation: none; }
+}
+
+.status {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ghost {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 12px;
+  cursor: pointer;
+  flex: none;
+}
+
+.ghost:hover {
+  color: var(--fg);
+  border-color: var(--muted);
+}
+
+/* --- alert banner --- */
+
+.banner {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.banner.flash {
+  animation: flash 0.5s ease-out;
+}
+
+@keyframes flash {
+  from { transform: scale(1.015); }
+  to { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner.flash { animation: none; }
+}
+
+.bell { flex: none; }
+
+.banner time {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 11px;
+  flex: none;
+}
+
+/* --- cards --- */
+
+.card {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.body {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The ask is the one thing that must land instantly. */
+#askCard .body {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 550;
+}
+
+/* A caret while tokens are still streaming, so a partial note doesn't read
+   as a finished one. */
+.body.streaming::after {
+  content: '▍';
+  color: var(--muted);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .body.streaming::after { animation: none; }
+}
+
+.summary {
+  color: var(--muted);
+  font-size: 13px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.summary div {
+  margin-bottom: 3px;
+}
+
+/* --- warnings --- */
+
+.warnings {
+  margin-top: 12px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-line);
+  color: var(--warn-fg);
+  font-size: 12.5px;
+}
+
+.warnings div + div {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--warn-line);
+}
+
+.warnings code {
+  font-size: 11.5px;
+  overflow-wrap: anywhere;
+}
+
+/* --- empty state + metrics --- */
+
+.empty {
+  margin-top: 18px;
+}
+
+.empty p {
+  margin: 0 0 8px;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+
+.metrics {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- activity log --- */
+
+.ghost[aria-pressed='true'] {
+  background: var(--card);
+  color: var(--fg);
+  border-color: var(--muted);
+}
+
+.logview {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.logbar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logbar input[type='search'] {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 12px;
+}
+
+.logbar select {
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 12px;
+  flex: none;
+}
+
+.logbar .ghost { padding: 4px 9px; }
+
+.follow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: auto;
+  flex: none;
+  cursor: pointer;
+}
+
+.loglist {
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.logrow {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 6px;
+  padding: 3px 8px;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.logrow:last-child { border-bottom: none; }
+
+.logrow .lt { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.logrow .lc {
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.logrow .lc.sw { color: #7c5cff; }
+.logrow .lc.audio { color: #0a9396; }
+.logrow .lc.stt { color: #ee9b00; }
+.logrow .lc.meet { color: #2a9d8f; }
+.logrow .lc.panel { color: #8d99ae; }
+.logrow .lc.llm { color: #e76f51; }
+
+.logrow.warn { background: var(--warn-bg); }
+.logrow.error { background: var(--accent-bg); }
+.logrow.error .lm { color: var(--accent); }
+.logrow.debug .lm { color: var(--muted); }
+
+.logrow .ld {
+  grid-column: 3;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.logcount {
+  padding: 5px 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}

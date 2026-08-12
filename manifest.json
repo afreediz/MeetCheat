@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Meet Mention Radar",
+  "version": "0.1.0",
+  "description": "Alerts you the moment you, your projects, or your manager are mentioned in a Google Meet call, and tells you what's being asked and what context you need.",
+
+  "permissions": [
+    "activeTab",
+    "tabCapture",
+    "offscreen",
+    "sidePanel",
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "https://meet.google.com/*",
+    "https://api.openai.com/*"
+  ],
+
+  "background": {
+    "service_worker": "src/service-worker.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_title": "Meet Mention Radar"
+  },
+
+  "side_panel": {
+    "default_path": "src/sidepanel/sidepanel.html"
+  },
+
+  "options_page": "src/options/options.html",
+
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "minimum_chrome_version": "116"
+}

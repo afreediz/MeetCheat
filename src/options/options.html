@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mention Radar — Setup</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Mention Radar</h1>
+      <p class="lede">
+        Tell it who you are and what you own. It listens to your Meet calls and
+        alerts you the moment any of it comes up.
+      </p>
+
+      <section>
+        <h2>You</h2>
+        <label for="name">Your name</label>
+        <input id="name" type="text" placeholder="e.g. Afreedi Khan" autocomplete="off" />
+
+        <label for="aliases">
+          How your name gets heard
+          <span class="hint">
+            Speech-to-text mangles names constantly — "Afreedi" comes through as
+            "a Freddy" or "afridi". It already handles close misses phonetically,
+            but if you hear a spelling it keeps missing, add it here. One per line.
+          </span>
+        </label>
+        <textarea id="aliases" rows="4" placeholder="Afreedi&#10;Freddy&#10;AF"></textarea>
+        <button id="seed" class="ghost" type="button">Suggest from my name</button>
+
+        <label for="role">
+          Your role
+          <span class="hint">One line. Used to judge what a question is really asking you for.</span>
+        </label>
+        <input id="role" type="text" placeholder="e.g. Backend lead, payments" autocomplete="off" />
+      </section>
+
+      <section>
+        <h2>Projects you own</h2>
+        <p class="hint">
+          Mentioned by name, you get alerted. The description is what lets it
+          tell a question meant for you from one meant for someone else.
+        </p>
+        <div id="projects" class="rows"></div>
+        <button id="addProject" class="ghost" type="button">+ Add project</button>
+      </section>
+
+      <section>
+        <h2>People worth watching</h2>
+        <p class="hint">Your manager, your PM, anyone whose mention you don't want to miss.</p>
+        <div id="people" class="rows"></div>
+        <button id="addPerson" class="ghost" type="button">+ Add person</button>
+      </section>
+
+      <section>
+        <h2>Alerts</h2>
+        <label class="check"><input id="onName" type="checkbox" /> Alert when my name is mentioned</label>
+        <label class="check"><input id="onProject" type="checkbox" /> Alert when one of my projects is mentioned</label>
+        <label class="check"><input id="onPeople" type="checkbox" /> Alert when a watched person is mentioned</label>
+        <label class="check"><input id="questionOnly" type="checkbox" /> Only write notes for questions aimed at me <span class="hint inline">(the chime still fires for every mention — this just saves tokens on passing references)</span></label>
+        <label class="check"><input id="soundEnabled" type="checkbox" /> Play a chime</label>
+        <label class="check"><input id="captureMic" type="checkbox" /> Capture my microphone too <span class="hint inline">(so the summary includes what I say, and it knows when I've already answered)</span></label>
+
+        <label for="sensitivity">
+          Match sensitivity <output id="sensitivityOut"></output>
+          <span class="hint">Lower catches more manglings but fires on more false positives. Start at 0.82.</span>
+        </label>
+        <input id="sensitivity" type="range" min="0.6" max="0.98" step="0.01" />
+
+        <label for="logLevel">
+          Activity log detail
+          <span class="hint">
+            Shown in the panel's Log tab and in each context's console. Use
+            <strong>Debug</strong> when something isn't working — it adds interim
+            transcript, per-chunk audio stats, and speaker resolution.
+          </span>
+        </label>
+        <select id="logLevel">
+          <option value="debug">Debug — everything</option>
+          <option value="info">Info — normal activity (recommended)</option>
+          <option value="warn">Warnings and errors only</option>
+          <option value="error">Errors only</option>
+        </select>
+      </section>
+
+      <section>
+        <h2>OpenAI</h2>
+        <label for="apiKey">
+          API key
+          <span class="hint">
+            Stored only in this browser profile's local storage, never synced.
+            Requests go straight from this extension to OpenAI.
+          </span>
+        </label>
+        <input id="apiKey" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false" />
+
+        <div class="grid">
+          <div>
+            <label for="notesModel">Notes model</label>
+            <input id="notesModel" type="text" autocomplete="off" spellcheck="false" />
+          </div>
+          <div>
+            <label for="summaryModel">Summary model</label>
+            <input id="summaryModel" type="text" autocomplete="off" spellcheck="false" />
+          </div>
+          <div>
+            <label for="transcribeModel">Transcription model</label>
+            <input id="transcribeModel" type="text" autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+        <p class="hint">
+          Model IDs are editable on purpose — they change faster than extensions
+          do. If a call fails with an unknown-model error, correct the ID here.
+        </p>
+        <button id="test" class="ghost" type="button">Test key</button>
+        <span id="testResult" class="result"></span>
+      </section>
+
+      <section class="notice">
+        <h2>Before you use this on a real call</h2>
+        <p>
+          Everything said on the call — by everyone, plus you if microphone
+          capture is on — is sent to OpenAI for transcription. Many workplaces
+          and some jurisdictions require you to tell the other participants.
+          That call is yours to make, but make it deliberately.
+        </p>
+      </section>
+
+      <footer class="actions">
+        <button id="save" type="button">Save</button>
+        <span id="saved" class="result"></span>
+      </footer>
+    </main>
+
+    <template id="projectRow">
+      <div class="row">
+        <input class="p-name" type="text" placeholder="Project name" autocomplete="off" />
+        <input class="p-aliases" type="text" placeholder="Also called (comma separated)" autocomplete="off" />
+        <input class="p-desc" type="text" placeholder="What you own on it" autocomplete="off" />
+        <button class="remove ghost" type="button" aria-label="Remove">×</button>
+      </div>
+    </template>
+
+    <template id="personRow">
+      <div class="row person">
+        <input class="q-name" type="text" placeholder="Full name" autocomplete="off" />
+        <select class="q-rel">
+          <option value="manager">Manager</option>
+          <option value="project_manager">Project manager</option>
+          <option value="teammate">Teammate</option>
+          <option value="stakeholder">Stakeholder</option>
+        </select>
+        <button class="remove ghost" type="button" aria-label="Remove">×</button>
+      </div>
+    </template>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

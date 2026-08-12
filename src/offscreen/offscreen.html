@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mention Radar audio worker</title>
+  </head>
+  <body>
+    <!--
+      Never visible. This document exists because MV3 service workers cannot
+      call getUserMedia and get torn down after ~30s idle, which would kill the
+      long-lived transcription sockets. Audio capture and both WebSockets live
+      here, where they persist for the whole call.
+    -->
+    <script type="module" src="offscreen.js"></script>
+  </body>
+</html>

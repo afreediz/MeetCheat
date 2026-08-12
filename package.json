@@ -1,0 +1,10 @@
+{
+  "name": "meet-mention-radar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Chrome extension: real-time mention alerts and answer context for Google Meet.",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  }
+}

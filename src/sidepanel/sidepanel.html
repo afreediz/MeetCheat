@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mention Radar</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <span id="dot" class="dot" aria-hidden="true"></span>
+      <span id="status" class="status">Not listening</span>
+      <button id="stop" class="ghost" hidden>Stop</button>
+      <button id="logToggle" class="ghost" title="Activity log" aria-pressed="false">Log</button>
+      <button id="settings" class="ghost" title="Options" aria-label="Options">⚙</button>
+    </header>
+
+    <section id="logView" class="logview" hidden>
+      <div class="logbar">
+        <input id="logFilter" type="search" placeholder="Filter…" aria-label="Filter log" />
+        <select id="logLevelFilter" aria-label="Minimum level">
+          <option value="debug">All</option>
+          <option value="info" selected>Info+</option>
+          <option value="warn">Warn+</option>
+          <option value="error">Errors</option>
+        </select>
+      </div>
+      <div class="logbar">
+        <button id="logDiag" class="ghost" title="Dump current config and session state">Diagnose</button>
+        <button id="logCopy" class="ghost">Copy</button>
+        <button id="logClear" class="ghost">Clear</button>
+        <label class="follow"><input id="logFollow" type="checkbox" checked /> Follow</label>
+      </div>
+      <div id="logList" class="loglist" role="log" aria-live="polite"></div>
+      <div id="logCount" class="logcount"></div>
+    </section>
+
+    <div id="warnings" class="warnings" hidden></div>
+
+    <section id="banner" class="banner" hidden aria-live="assertive">
+      <span class="bell" aria-hidden="true">🔔</span>
+      <span id="bannerText"></span>
+      <time id="bannerTime" class="muted"></time>
+    </section>
+
+    <section class="card" id="askCard" hidden>
+      <h2>The ask</h2>
+      <p id="ask" class="body"></p>
+    </section>
+
+    <section class="card" id="contextCard" hidden>
+      <h2>Context you need</h2>
+      <p id="context" class="body"></p>
+    </section>
+
+    <section class="card" id="summaryCard" hidden>
+      <h2>Meeting so far</h2>
+      <div id="summary" class="body summary"></div>
+    </section>
+
+    <section id="empty" class="empty">
+      <p><strong>Not listening yet.</strong></p>
+      <p class="muted">
+        With your Google Meet call open in this tab, press Start. You'll get a
+        chime and a brief the moment you, a project you own, or someone on your
+        watch list is mentioned.
+      </p>
+      <button id="start" type="button">Start listening</button>
+      <p class="muted small">
+        Clicking the extension icon in the toolbar does the same thing.
+      </p>
+      <p class="muted small" id="emptyHint"></p>
+    </section>
+
+    <footer id="metrics" class="metrics" hidden></footer>
+
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>
