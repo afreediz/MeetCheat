@@ -341,8 +341,11 @@ All latency and sensitivity knobs are in one place: `TUNING` in
 
 ## Contributing
 
-Open to contributions — issues and pull requests are welcome. Meet's markup
-moves, model IDs move, and the matcher always has room for more real-world
-manglings, so fixes for any of those are especially useful.
+Open to contributions — issues and pull requests are welcome.
+
+Expanding to other platforms — Zoom, Teams — is the most wanted addition. Only
+`src/content.js`, the matches in `manifest.json`, and two `meet.google.com`
+URL checks in `src/service-worker.js` are Meet-specific; the rest already
+knows nothing about Meet.
 
 If you found this helpful, a ⭐ is appreciated.
