@@ -25,7 +25,7 @@ The summary is what keeps the context note fast: at trigger time the model
 composes from an already-digested summary instead of re-reading the meeting.
 
 Names are the hard part. Speech-to-text mangles proper nouns constantly —
-"Afreedi" arrives as "a Freddy". Two defences: proper nouns are sent to the
+"Aleena" arrives as "a Lena". Two defences: proper nouns are sent to the
 transcriber as `keywords` to bias it up front, and the matcher compares
 Double Metaphone codes so close misses still land.
 
@@ -93,7 +93,7 @@ A healthy session looks roughly like this:
 
 ```
 sw     service worker ready            {hasApiKey:true, projects:2}
-sw     watching 7 trigger phrase(s)    {phrases:["name:Afreedi", ...]}
+sw     watching 7 trigger phrase(s)    {phrases:["name:Aleena", ...]}
 meet   call started                    {tilesFound:4}
 sw     toolbar icon clicked
 audio  audio context ready             {sampleRate:48000, resampleRatio:"2.000"}
@@ -103,7 +103,7 @@ stt    [remote] socket open
 stt    [remote] session configured — transcription active
 audio  ♪ remote: 250/250 chunks sent in 5s   {socket:"open", peakRms:0.084}
 sw     ⟨remote⟩ Sarah Chen: so what's the timeline on the gateway
-sw     🔔 TRIGGER · name:Afreedi        {heardAs:"a freddy", score:0.9}
+sw     🔔 TRIGGER · name:Aleena         {heardAs:"a lena", score:0.9}
 sw     ⏱ first note token 412ms after trigger
 sw     ⏱ notes complete 1180ms
 ```

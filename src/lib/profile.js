@@ -28,7 +28,7 @@ export function defaultProfile() {
       notesModel: 'gpt-4.1-mini',
       summaryModel: 'gpt-4.1-mini',
       // gpt-transcribe is the model that accepts BOTH `keywords` (proper-noun
-      // biasing — the thing that keeps "Afreedi" from landing as "Afridi") and
+      // biasing — the thing that keeps "Aleena" from landing as "Elena") and
       // server-side VAD. The 4o-transcribe family has no keywords support, and
       // gpt-live-transcribe rejects turn_detection outright. If this ID is
       // changed to one without keywords, the transcriber degrades to prompt

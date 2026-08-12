@@ -238,8 +238,8 @@ export class RealtimeTranscriber {
   _configureSession() {
     const transcription = { model: this.model };
 
-    // Bias toward the user's own proper nouns. This is what stops "Afreedi"
-    // transcribing as "Afridi" in the first place; the phonetic matcher
+    // Bias toward the user's own proper nouns. This is what stops "Aleena"
+    // transcribing as "Elena" in the first place; the phonetic matcher
     // downstream is the backstop for when it still does.
     if (this.keywords.length) {
       const terms = this.keywords.slice(0, 100);

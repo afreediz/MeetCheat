@@ -7,7 +7,7 @@
  *
  * Three scoring strategies, best-of:
  *   1. exact normalized match        -> 1.0
- *   2. double-metaphone code match   -> 0.9   ("a freddy" ~ "Afreedi")
+ *   2. double-metaphone code match   -> 0.9   ("a lena" ~ "Aleena")
  *   3. bounded Levenshtein similarity -> the similarity itself
  */
 
@@ -49,7 +49,7 @@ export function normalize(text) {
   return String(text ?? '')
     .toLowerCase()
     // Drop apostrophes rather than splitting on them, so possessives like
-    // "afreedi's" collapse to "afreedis" and still match.
+    // "aleena's" collapse to "aleenas" and still match.
     .replace(/['‘’]/g, '')
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')

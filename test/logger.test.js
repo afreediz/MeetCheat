@@ -72,8 +72,8 @@ test('masks keys nested inside objects and arrays', () => {
 });
 
 test('leaves ordinary values untouched', () => {
-  const out = redact({ model: 'gpt-4.1-mini', chunks: 42, ok: true, name: 'Afreedi' });
-  assert.deepEqual(out, { model: 'gpt-4.1-mini', chunks: 42, ok: true, name: 'Afreedi' });
+  const out = redact({ model: 'gpt-4.1-mini', chunks: 42, ok: true, name: 'Aleena' });
+  assert.deepEqual(out, { model: 'gpt-4.1-mini', chunks: 42, ok: true, name: 'Aleena' });
 });
 
 test('redaction survives null, undefined and primitives', () => {

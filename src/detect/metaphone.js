@@ -3,8 +3,8 @@
  *
  * Returns two phonetic codes per word — a primary and an alternate — so words
  * with more than one plausible pronunciation can match either way. This is the
- * mechanism that lets a speech-to-text transcript of "a freddy" match the
- * profile name "Afreedi": both reduce to the same consonant skeleton.
+ * mechanism that lets a speech-to-text transcript of "a lena" match the
+ * profile name "Aleena": both reduce to the same consonant skeleton.
  *
  * Pure and dependency-free so it can run on every interim transcript token
  * without touching the network.
