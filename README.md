@@ -11,6 +11,28 @@ A rolling meeting summary sits below, refreshed in the background.
 
 ---
 
+## What it looks like
+
+**Your name comes up.** The banner and the chime fire off the interim
+transcript, before the sentence has finished. The footer prints how long the
+notes took.
+
+![Alert banner in the side panel the moment your name is mentioned](test/sample1.png)
+
+**A topic you own comes up.** Here it's a direct question, so the panel writes
+*The ask* — the question in one line — and keeps the rolling *Meeting so far*
+summary underneath it.
+
+![Side panel showing the ask and the rolling meeting summary after a project mention](test/sample2.png)
+
+**What you can configure.** Your name and the manglings to watch for, projects
+and people, which mentions alert, match sensitivity, log detail, and the OpenAI
+key and model IDs.
+
+![Options page with profile, watch list, alert and OpenAI settings](test/sample3.png)
+
+---
+
 ## Latency design
 
 Three tiers, because the alert has to beat the end of the sentence:
